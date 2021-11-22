@@ -1,0 +1,18 @@
+version: '3.4'
+services:
+  mariadb:
+    image: mariadb:latest
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: farmacia
+      MYSQL_USER: farmacia
+      MYSQL_PASSWORD: farmacia
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.DaemonName}}(image={{.ImageName}};name={{.Name}};id={{.ID}})"
+    restart: on-failure
+    volumes:
+      - ${PWD}/mariadb:/var/lib/mysql
